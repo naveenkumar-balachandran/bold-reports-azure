@@ -44,6 +44,7 @@
     var cdnDomain = GlobalAppSettings.CdnDomain;
     var isDesignerV2Enabled = ViewBag.IsDesignerV2Enabled;
     var userId = _identityResponse.User.UserId;
+    var canShowSession = ServerAppConfig.IsSelfHosted && (ViewBag.CanHideSessionInEmbed == null ? true : ViewBag.CanHideSessionInEmbed != true);
 }
 
 <html lang="en" style="height:100%;width:100%">
@@ -58,6 +59,7 @@
     {
         <title>Untitled - [[[Design Report]]] - @globalAppSettings.SystemSettings.OrganizationName</title>
     }
+    <script asp-append-version="true" src="~/js/localizationcontent.js?c=@System.Globalization.CultureInfo.CurrentCulture"></script>
     @if (ServerAppConfig.IsSelfHosted)
     {
         <environment include="Development,CloudDevelopment">
@@ -102,6 +104,7 @@
             <script asp-append-version="true" src="@reportServerResourceUrl/cdn/scripts/essentialjs/bold.reportdesigner.min.js"></script>
             <script asp-append-version="true" src="@reportServerResourceUrl/cdn/scripts/essentialjs/custom.salesforce.min.js"></script>
             <script asp-append-version="true" src="@reportServerResourceUrl/cdn/scripts/report-designer-service.js"></script>
+            <script asp-append-version="true" src="@reportServerResourceUrl/cdn/scripts/designercommon.js"></script>
             <script asp-append-version="true" src="@reportServerResourceUrl/extensions/barcode.reportitem.js"></script>
             <script asp-append-version="true" src="@reportServerResourceUrl/extensions/extension.config.js"></script>
             <script asp-append-version="true" src="@reportServerResourceUrl/extensions/qrbarcode.reportitem.js"></script>
@@ -112,6 +115,7 @@
             <script asp-append-version="true" src="@reportServerResourceUrl/cdn/scripts/essentialjs/bold.reportdesigner.min.js"></script>
             <script asp-append-version="true" src="@reportServerResourceUrl/cdn/scripts/essentialjs/custom.salesforce.min.js"></script>
             <script asp-append-version="true" src="@reportServerResourceUrl/cdn/scripts/report-designer-service.min.js"></script>
+            <script asp-append-version="true" src="@reportServerResourceUrl/cdn/scripts/designercommon.min.js"></script>
             <script asp-append-version="true" src="@reportServerResourceUrl/extensions/barcode.reportitem.js"></script>
             <script asp-append-version="true" src="@reportServerResourceUrl/extensions/extension.config.js"></script>
             <script asp-append-version="true" src="@reportServerResourceUrl/extensions/qrbarcode.reportitem.js"></script>
@@ -211,7 +215,7 @@
         }
 
         #messageBox_wrapper {
-            height: 200px !important;
+            height: 150px !important;
         }
 
         .message-content {
@@ -465,6 +469,8 @@
         var _key = _CryptoAES.enc.Utf8.parse(_keyCode);
         var _iv = _CryptoAES.enc.Utf8.parse(_ivCode);
         var isDesignerV2Enabled = @Json.Serialize(isDesignerV2Enabled);
+        var canCheckSession = @Html.Raw(Json.Serialize(canShowSession));
+        var isSessionActiveUrl = "@Url.Action("IsSessionActive", "Accounts")";
 
         if(isEdit === "true"){
             isEditReport = true;
@@ -539,6 +545,7 @@
                 reportServerUrl: "@reportServerApiUrl",
                 create: $.proxy(controlInitialized, this),
                 reportSaved: $.proxy(reportSaved, this),
+                reportOpened: $.proxy(reportOpened, this),
                 serviceAuthorizationToken: designerToken,
                 toolbarSettings: {
                     items: ej.ReportDesigner.ToolbarItems.All & ~ej.ReportDesigner.ToolbarItems.New
@@ -589,7 +596,7 @@
         }
 
         function addCustomFonts(fontFamily, fontFile) {
-            var customFontUrl = "@baseUrl/content/custom-fonts/" + fontFile;
+            var customFontUrl = encodeURI("@baseUrl/content/custom-fonts/" + fontFile);
             if (isFontFaceExist()) {
                 try {
                     const customFont = new FontFace(fontFamily, 'url(' + customFontUrl + ')');
@@ -686,7 +693,7 @@
                 args.headers.push({ Key: 'ReportId', Value: reportId });
             }
             if (args.actionType === 'openServerReport' || args.actionType === 'saveServerReport'
-                || args.actionType === 'createServerReport' || args.actionType === 'CheckDraftReport') {
+                || args.actionType === 'createServerReport' || args.actionType === 'HasDraftReport') {
                 var reportServerData = {
                     'category': categoryName,
                     'categoryId': categoryId,
@@ -702,7 +709,7 @@
                 args.data = reportServerData;
             }
 
-            if (args.actionType === 'AutoDraftReport') {
+            if (args.actionType === 'CreateDraftReport') {
                 $('#' + controlId + '_design_header_draft_icon').removeClass('e-designer-draft-status-success').addClass('e-designer-draft-status-progress');
                 $('#' + controlId + '_design_header_draft_status').text("[[[Saving draft...]]]");
             }
@@ -750,6 +757,19 @@
                 isDraft = designer.isNewServerReport().toString();
                 alertMessage(true, window.Server.App.LocalizationContent.Success + "!", window.Server.App.LocalizationContent.DesignerPublishSuccess);
             }
+        }
+
+        function reportOpened() {
+            if (hasReportPart()) {
+                var designer = $('#' + controlId).data('boldReportDesigner');
+                designer.getInstance('ReportUtil').ejAlertDialog('Report Part', 'The report \'' + reportName + '\' was designed in Report Designer 2.0 and contains report parts. If you publish the report in Report Designer 1.0, you will loss the report parts mapping information.', false, true, true, '');
+            }
+        }
+
+        function hasReportPart() {
+            var designer = $('#' + controlId).data('boldReportDesigner');
+            var elements = designer.designerPanel.designArea.find("[partid]");
+            return elements.length > 0 ? true : false;
         }
 
         function alertMessage(status, toastTitle, toastMessage) {
@@ -1265,7 +1285,7 @@
             <div class="message-header"></div>
             <div class="message-box-close"></div>
             <div class="message-content text-center"></div>
-            <div class="message-box-btn-holder" style="display:none"></div>
+            <div class="message-box-btn-holder"></div>
         </div>
     }
     @*@if (showTour)
@@ -1274,7 +1294,5 @@
         Html.RenderPartial("~/Views/Shared/_DesignerTour.cshtml");
         @Scripts.Render("~/bundles/scripts/reports-tour")
     }*@
-
-    @await Html.PartialAsync("../Items/_AddCategory", new ViewDataDictionary(ViewData) { { "IsReportDesigner", true } });
 </body>
 </html>

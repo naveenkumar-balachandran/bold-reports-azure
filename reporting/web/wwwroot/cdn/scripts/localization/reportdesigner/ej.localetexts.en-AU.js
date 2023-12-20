@@ -788,6 +788,7 @@ ej.ReportDesigner.Locale['en-AU'] = {
             position: 'Title Position'
         },
         axis: {
+            axisType: 'Axis Type',
             booleanPropertyLabel: 'Enable Axis',
             title: 'Axis Title',
             alignment: 'Alignment',
@@ -915,6 +916,15 @@ ej.ReportDesigner.Locale['en-AU'] = {
                         barLabelStyle: 'BarLabelStyle',
                         smartLabelStyle: 'LabelStyle'
                     }
+                }
+            },
+            axisSettings: {
+                categoryName: 'Axis Settings',
+                categoryAxis: 'Category',
+                valueAxis: 'Value',
+                axisTypes: {
+                    primary: 'Primary',
+                    secondary: 'Secondary'
                 }
             },
             link: 'Link',
@@ -1878,7 +1888,9 @@ ej.ReportDesigner.Locale['en-AU'] = {
                 serverName: 'Server Name',
                 savePassword: 'Save Password',
                 database: 'Database',
-                advanceSwitch: 'Advanced Options'
+                advanceSwitch: 'Advanced Options',
+                encrypt: 'Encrypt',
+                trustserver: 'Trust Server Certificate'
             },
             advanceOption: {
                 connectionString: 'Connection String',
@@ -2767,6 +2779,26 @@ ej.ReportDesigner.Locale['en-AU'] = {
             Indicator: 'Indicator report item',
             Line: 'Line report item',
             Subreport: 'Sub report item'
+        },
+        reportParameter: {
+            operators: {
+                equals: 'Equals',
+                notEqualTo: 'Not equal to',
+                lessThan: 'Less than',
+                greaterThan: 'Greater than',
+                lessOrEqual: 'Less or equal',
+                greaterOrEqual: 'Greater or equal',
+                contains: 'Contains',
+                doesNotContain: 'Not contain',
+                startsWith: 'Starts with',
+                endsWith: 'Ends with',
+                is: 'Is',
+                isNot: 'Is not',
+                in: 'In',
+                notIn: 'Not in',
+                between: 'Between',
+                relative: 'Relative'
+            }
         },
         selectAll: 'Select All',
         viewButton: 'View Report',
@@ -4133,7 +4165,9 @@ ej.ReportDesigner.Locale['en-AU'] = {
         nameWaterMark: 'Parameter Name',
         valueWaterMark: 'Value',
         closeToolTip: 'Close',
-        deleteField: 'Delete Field'
+        deleteField: 'Delete Field',
+        allowMultiple: 'Allow multiple values',
+        allowNull: 'Allows null value'
     },
     queryDesigner: {
         storeParameter: {

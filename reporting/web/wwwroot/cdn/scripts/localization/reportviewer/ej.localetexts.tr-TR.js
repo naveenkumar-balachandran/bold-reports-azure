@@ -19,9 +19,9 @@ ej.ReportViewer.Locale["tr-TR"] = {
             contentText: "Verilen dosya biçimini seçin.",
             Pdf: "PDF",
             Excel: "Excel",
-            Word: "sözcük",
+            Word: "Word",
             Html: "HTML",
-            PPT: "Priz",
+            PPT: "PowerPoint",
             CSV: "CSV",
             XML: "XML"
         },
@@ -327,6 +327,26 @@ ej.ReportViewer.Locale["tr-TR"] = {
         RVERR0013: 'Lütfen parametreler için değer girin',
         RVERR0014: 'Parametreler boş olamaz',
         RVERR0015: 'parametre adları için gereken değer',
+    },
+    reportParameter: {
+        operators: {
+            equals: 'eşittir',
+            notEqualTo: 'Eşit değil',
+            lessThan: 'Daha az',
+            greaterThan: 'daha büyük',
+            lessOrEqual: 'Daha az veya eşit',
+            greaterOrEqual: 'Daha büyük veya eşit',
+            contains: 'içerir',
+            doesNotContain: 'Dahil değil',
+            startsWith: 'İle başlar',
+            endsWith: 'ile biter',
+            is: 'Dır-dir',
+            isNot: 'Değil',
+            in: 'İçinde',
+            notIn: 'Değil',
+            between: 'Arasında',
+            relative: 'Akraba'
+        }
     },
     selectAll: 'Hepsini seç',
     viewButton: "Raporu görüntüle",

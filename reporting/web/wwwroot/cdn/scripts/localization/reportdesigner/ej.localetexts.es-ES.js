@@ -788,6 +788,7 @@ ej.ReportDesigner.Locale['es-ES'] = {
             position: 'Posición del título'
         },
         axis: {
+            axisType: 'Tipo de eje',
             booleanPropertyLabel: 'Habilitar eje',
             title: 'Título del eje',
             alignment: 'Alineamiento',
@@ -915,6 +916,15 @@ ej.ReportDesigner.Locale['es-ES'] = {
                         barLabelStyle: 'Estilo de etiqueta de barra',
                         smartLabelStyle: 'Estilo de etiqueta de etiqueta inteligente'
                     }
+                }
+            },
+            axisSettings: {
+                categoryName: 'Configuración del eje',
+                categoryAxis: 'Categoría',
+                valueAxis: 'Valorr',
+                axisTypes: {
+                    primary: 'Primaria',
+                    secondary: 'Secundaria'
                 }
             },
             link: 'Vínculo',
@@ -1878,7 +1888,9 @@ ej.ReportDesigner.Locale['es-ES'] = {
                 serverName: 'Nombre de servidor',
                 savePassword: 'Guardar contraseña',
                 database: 'Base de datos',
-                advanceSwitch: 'Opciones avanzadas'
+                advanceSwitch: 'Opciones avanzadas',
+                encrypt: 'encriptar',
+                trustserver: 'Certificado de Servidor de Confianza'
             },
             advanceOption: {
                 connectionString: 'Cadena de conexión',
@@ -2787,6 +2799,26 @@ ej.ReportDesigner.Locale['es-ES'] = {
             Indicator: 'Elemento de informe del indicador',
             Line: 'Elemento de informe de línea',
             Subreport: 'Elemento del subinforme'
+        },
+        reportParameter: {
+            operators: {
+                equals: 'igual',
+                notEqualTo: 'No igual a',
+                lessThan: 'Menos que',
+                greaterThan: 'Mas grande que',
+                lessOrEqual: 'menor o igual',
+                greaterOrEqual: 'Mayor o igual',
+                contains: 'Contiene',
+                doesNotContain: 'No contiene',
+                startsWith: 'Comienza con',
+                endsWith: 'Termina con',
+                is: 'Es',
+                isNot: 'No es',
+                in: 'En',
+                notIn: 'No en',
+                between: 'Entre',
+                relative: 'Relativo'
+            }
         },
         selectAll: 'Seleccionar todo',
         viewButton: 'Ver informe',
@@ -4153,7 +4185,9 @@ ej.ReportDesigner.Locale['es-ES'] = {
         nameWaterMark: 'Nombre de parámetro',
         valueWaterMark: 'Valor',
         closeToolTip: 'Cerrar',
-        deleteField: 'Borrar campo'
+        deleteField: 'Borrar campo',
+        allowMultiple: 'Permitir múltiples valores',
+        allowNull: 'Permite valor nulo'
     },
     queryDesigner: {
         storeParameter: {

@@ -97,7 +97,7 @@ $(document).on("click", "#change-subscription", function () {
     $(".online-change-subscription").attr("license-service-url", $(this).attr("license-service-url") + "&change_subscription=true");
     $(".offline-change-subscription").attr("data-offlinelicense-url", $(this).attr("data-offlinelicense-url")).attr("data-tenant-type", $(this).attr("data-tenant-type"));
     $("#change-subscription-help").attr("href", $(this).attr("data-offlinelicense-url"));
-
+    $("#change-subscription-content_title").html(window.Server.App.LocalizationContent.RefreshLicenseDialogHeader);
     changeSubscriptionDialog.show();
 });
 
@@ -105,7 +105,7 @@ $(document).on("click", ".edit-link", function () {
     $(".online-change-subscription").attr("license-service-url", $(this).attr("license-service-url") + "&change_subscription=true");
     $(".offline-change-subscription").attr("data-offlinelicense-url", $(this).attr("data-offlinelicense-url")).attr("data-tenant-type", $(this).attr("data-tenant-type"));
     $("#change-subscription-help").attr("href", $(this).attr("data-offlinelicense-url"));
-
+    $("#change-subscription-content_title").html(window.Server.App.LocalizationContent.EditSubscriptionDialogHeader);
     changeSubscriptionDialog.show();
 });
 
@@ -145,7 +145,7 @@ function handleApplyLicense(addButtonObj, evt) {
             });
 
         } else if (evt.originalEvent.data.isSuccess === false) {
-            WarningAlert(window.Server.App.LocalizationContent.ManageLicense, window.Server.App.LocalizationContent.LicenseUpdateFailed, 0);
+            WarningAlert(window.Server.App.LocalizationContent.ManageLicense, window.Server.App.LocalizationContent.LicenseUpdateFailed, null, 0);
         }
     }
 }

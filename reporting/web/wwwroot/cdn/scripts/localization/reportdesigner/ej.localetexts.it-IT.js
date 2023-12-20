@@ -788,6 +788,7 @@ ej.ReportDesigner.Locale['it-IT'] = {
             position: 'Posizione del titolo'
         },
         axis: {
+            axisType: 'Tipo di asse',
             booleanPropertyLabel: 'Abilita asse',
             title: 'Titolo dell\'asse',
             alignment: 'Allineamento',
@@ -915,6 +916,15 @@ ej.ReportDesigner.Locale['it-IT'] = {
                         barLabelStyle: 'Stile etichetta barra',
                         smartLabelStyle: 'Stile etichetta'
                     }
+                }
+            },
+            axisSettings: {
+                categoryName: 'Impostazioni dell\'asse',
+                categoryAxis: 'Categoria',
+                valueAxis: 'Valore',
+                axisTypes: {
+                    primary: 'Primario',
+                    secondary: 'Secondario'
                 }
             },
             link: 'Link',
@@ -1878,7 +1888,9 @@ ej.ReportDesigner.Locale['it-IT'] = {
                 serverName: 'Nome del server',
                 savePassword: 'Salva la password',
                 database: 'Banca dati',
-                advanceSwitch: 'Opzioni avanzate'
+                advanceSwitch: 'Opzioni avanzate',
+                encrypt: 'crittografare',
+                trustserver: 'Certificato del Server Affidabile'
             },
             advanceOption: {
                 connectionString: 'Stringa di connessione',
@@ -2435,10 +2447,10 @@ ej.ReportDesigner.Locale['it-IT'] = {
                 headerText: 'Esportare',
                 contentText: 'Seleziona il formato del file esportato.',
                 Pdf: 'PDF',
-                Excel: 'Eccellere',
-                Word: 'parola',
+                Excel: 'Excel',
+                Word: 'Word',
                 Html: 'HTML',
-                PPT: 'Presa della corrente',
+                PPT: 'PowerPoint',
                 CSV: 'CSV',
                 XML: 'XML'
             },
@@ -2787,6 +2799,26 @@ ej.ReportDesigner.Locale['it-IT'] = {
             Indicator: 'Voce di rapporto dell\'indicatore',
             Line: 'Elemento del rapporto di linea',
             Subreport: 'Voce di report secondario'
+        },
+        reportParameter: {
+            operators: {
+                equals: 'Equivale',
+                notEqualTo: 'Non uguale a',
+                lessThan: 'Meno di',
+                greaterThan: 'Più grande di',
+                lessOrEqual: 'Minore o uguale',
+                greaterOrEqual: 'Maggiore o uguale',
+                contains: 'Contiene',
+                doesNotContain: 'Non contenere',
+                startsWith: 'Inizia con',
+                endsWith: 'Finisce con',
+                is: 'È',
+                isNot: 'Non è',
+                in: 'Nella',
+                notIn: 'Non in',
+                between: 'Fra',
+                relative: 'Parente'
+            }
         },
         selectAll: 'Seleziona tutto',
         viewButton: 'Visualizza rapporto',
@@ -4153,7 +4185,9 @@ ej.ReportDesigner.Locale['it-IT'] = {
         nameWaterMark: 'Nome parametro',
         valueWaterMark: 'Valore',
         closeToolTip: 'Vicina',
-        deleteField: 'Elimina campo'
+        deleteField: 'Elimina campo',
+        allowMultiple: 'Consenti più valori',
+        allowNull: 'Consente valore nullo'
     },
     queryDesigner: {
         storeParameter: {
