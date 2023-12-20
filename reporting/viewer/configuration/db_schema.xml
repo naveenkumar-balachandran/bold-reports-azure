@@ -473,6 +473,7 @@
     <Notifications>Notifications</Notifications>
     <ViewerFeatures>ViewerFeatures</ViewerFeatures>
     <DesignerFeatures>DesignerFeatures</DesignerFeatures>
+    <ServerFeatures>ServerFeatures</ServerFeatures>    
     <ModifiedDate>ModifiedDate</ModifiedDate>
     <IsActive>IsActive</IsActive>
   </DB_UserPreference>
@@ -818,4 +819,46 @@
     <Name>Name</Name>
     <IsActive>IsActive</IsActive>
   </DB_SettingsType>
+  <DB_ReportPartType>
+    <DB_TableName>ReportPartType</DB_TableName>
+    <Id>Id</Id>
+    <Name>Name</Name>
+    <IsActive>IsActive</IsActive>
+  </DB_ReportPartType>
+  <DB_ReportPartLinkage>
+    <DB_TableName>ReportPartLinkage</DB_TableName>
+    <Id>Id</Id>
+    <ReportPartId>ReportPartId</ReportPartId>
+    <ReportId>ReportId</ReportId>
+    <CreatedById>CreatedById</CreatedById>
+    <ModifiedById>ModifiedById</ModifiedById>
+    <CreatedDate>CreatedDate</CreatedDate>
+    <ModifiedDate>ModifiedDate</ModifiedDate>
+    <IsActive>IsActive</IsActive>
+  </DB_ReportPartLinkage>
+  <DB_ReportPartTypeInfo>
+    <DB_TableName>ReportPartTypeInfo</DB_TableName>
+    <Id>Id</Id>
+    <ReportPartId>ReportPartId</ReportPartId>
+    <ReportPartTypeId>ReportPartTypeId</ReportPartTypeId>
+    <ItemTypeId>ItemTypeId</ItemTypeId>
+    <ItemId>ItemId</ItemId>
+    <CreatedById>CreatedById</CreatedById>
+    <ModifiedById>ModifiedById</ModifiedById>
+    <CreatedDate>CreatedDate</CreatedDate>
+    <ModifiedDate>ModifiedDate</ModifiedDate>  
+    <IsActive>IsActive</IsActive>
+</DB_ReportPartTypeInfo>
+<DB_UserSession>
+    <DB_TableName>UserSession</DB_TableName>
+    <Id>Id</Id>
+    <IdpReferenceId>IdpReferenceId</IdpReferenceId>
+    <DirectoryTypeId>DirectoryTypeId</DirectoryTypeId>
+    <IpAddress>IpAddress</IpAddress>
+    <LoggedInTime>LoggedInTime</LoggedInTime>
+    <IsActive>IsActive</IsActive>
+    <SessionId>SessionId</SessionId>
+    <Browser>Browser</Browser>
+    <LastActive>LastActive</LastActive>
+</DB_UserSession>	
 </DB_SyncUMP>

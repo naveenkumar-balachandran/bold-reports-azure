@@ -49,7 +49,6 @@ var excludedSearchKeys = [
 ];
 
 $(document).ready(function () {
-    setClientLocaleCookie("boldservice.client.locale", 365);
     createWaitingPopup('body');
     createWaitingPopup('server-app-container');
     createWaitingPopup('content-area');
@@ -206,6 +205,14 @@ $(document).ready(function () {
     });
 
     dropDownList.appendTo("#download-logs-dialog-dropdown");
+    var UserNameElement = $(".top-menu-user-name .top-menu-user-name-style:first").text();
+    var UserEmailElement = $(".top-menu-user-name .top-menu-user-email-style:first").text();
+    if (UserNameElement.length > 21 || UserEmailElement.length > 25) {
+        $(".top-menu-profile-hover").attr("title", "<span class='tooltip-row'>" + UserNameElement + "</span><span class='tooltip-row'>" + UserEmailElement + "</span>");
+        $(".top-menu-profile-hover").tooltip({
+            html: true,
+        });
+    }
 });
 
 $(document).on("click", "#download-log", function () {
@@ -751,7 +758,7 @@ function IsEmail(email) {
 }
 
 function UsernameValidation(username) {
-    var filter = /^[a-zA-Z0-9]([._-](?![._-])|[a-zA-Z0-9]){1,252}[a-zA-Z0-9]$/;
+    var filter = /^(?:(?!\.{2}|_{2}|-{2})[\p{L}\p{N}0-9_.-]+@[\p{L}\p{N}\-]+(\.[\p{L}\-]+)*|[\p{L}\p{N}0-9_.-]+)$/u;
     if (filter.test(username)) {
         return true;
     }
@@ -1044,15 +1051,12 @@ function getUrlQueryVariable(url, variable) {
     return null;
 }
 
-function setClientLocaleCookie(name, exdays) {
-    var value = {
-        Locale: navigator.language,
-        TimeZone: Intl.DateTimeFormat().resolvedOptions().timeZone
-    };
-    var exdate = new Date();
-    exdate.setDate(exdate.getDate() + exdays++);
-    var cookie_value = escape(JSON.stringify(value)) + ((exdays == null) ? "" : "; expires=" + exdate.toUTCString());
-    document.cookie = name + "=" + cookie_value + ";path=/";
+function SetHttpOnlyCookie(cookieName, cookieValue, expires, isCookiePathRequired) {
+    $.ajax({
+        type: "POST",
+        url: setCookieHttpOnlyUrl,
+        data: { cookieName: cookieName, cookieValue: cookieValue, expires: expires, isCookiePathRequired: isCookiePathRequired }
+    });
 }
 
 function profileDisplayNameSelection() {
@@ -1125,6 +1129,10 @@ function copyToClipboard(inputId, buttonId) {
         if (buttonId == "#api-copy-client-secret" || buttonId == "#copy-client-secret") {
             copyText.attr("type", "password");
         }
+
+        if (inputId === "#copy-recovery") {
+            $("#copy-recovery").css("display", "none");
+        }
     }
     else {
         var copyText = $(inputId);
@@ -1132,6 +1140,10 @@ function copyToClipboard(inputId, buttonId) {
         document.execCommand("copy");
         if (buttonId == "#api-copy-client-secret" || buttonId == "#copy-client-secret") {
             copyText.attr("type", "password");
+        }
+
+        if (inputId === "#copy-recovery") {
+            $("#copy-recovery").css("display", "none");
         }
     }
     setTimeout(function () {
@@ -1214,4 +1226,10 @@ $(document).on("click", "#copy-error-area", function (e) {
     $("#copy-error-area").attr("data-original-title", window.Server.App.LocalizationContent.Copied);
     $("#copy-error-area").tooltip("hide").attr("data-original-title", window.Server.App.LocalizationContent.Copied).tooltip("fixTitle").tooltip("show");
     setTimeout(function () { $("#copy-error-area").attr("data-original-title", window.Server.App.LocalizationContent.LinkCopy); $("#copy-error-area").tooltip(); }, 3000);
+});
+
+$('body').on('click', 'a', function () {
+    if (enableSameTabLinkTarget && $(this).attr('href') !== undefined && !($(this).attr("href").includes("redirect.boldbi.com"))) {
+        $(this).attr("target", "_self");
+    }
 });

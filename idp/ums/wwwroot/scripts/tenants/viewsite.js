@@ -40,8 +40,8 @@ $(document).ready(function () {
         content: document.getElementById("grant-users-access-dialog-content"),
         showCloseIcon: true,
         buttons: [
-            { click: provideAccesstoUsers, buttonModel: { content: window.Server.App.LocalizationContent.GrantSiteAccessButton, isPrimary: true, cssClass: 'provide-access-button' } },
-            { click: onAddUsersDialogClose, buttonModel: { content: window.Server.App.LocalizationContent.CancelButton, cssClass: 'cancel-button' } }
+            { click: onAddUsersDialogClose, buttonModel: { content: window.Server.App.LocalizationContent.CancelButton, cssClass: 'cancel-button' } },
+            { click: provideAccesstoUsers, buttonModel: { content: window.Server.App.LocalizationContent.GrantSiteAccessButton, isPrimary: true, cssClass: 'provide-access-button' } }
         ],
         width: "900px",
         height: "539px",
@@ -89,31 +89,42 @@ $(document).ready(function () {
     });
     addTenantDialog.appendTo("#add-tenant-popup");
 
+    initializeEj2CheckBox("all-settings");
+    initializeEj2CheckBox("date-and-time");
+    initializeEj2CheckBox("look-and-feel");
+    initializeEj2CheckBox("branding");
+    initializeEj2CheckBox("email");
+    initializeEj2CheckBox("account");
+    initializeEj2CheckBox("language");
+
     var query = window.location.search;
     if (query.includes("?tab=general")) {
         $('a[href="#application-tab"]').tab("show");
     }
-    else if (query.includes("?tab=users")) {
+    else if (query.includes("?tab=users") && isActiveSite) {
         if (!isUserTabLoaded) {
             getAppUsers();
             isUserTabLoaded = true;
         }
         $('a[href="#users-tab"]').tab("show");
     }
-    else if (query.includes("?tab=isolation-code")) {
+    else if (query.includes("?tab=isolation-code") && isActiveSite) {
         $('a[href="#data-security-tab"]').tab("show");
         enableIsolationCode();
     }
-    else if (query.includes("?tab=attributes")) {
+    else if (query.includes("?tab=attributes") && isActiveSite) {
         if (!isAttributeTabLoaded) {
             getAttributes();
             isAttributeTabLoaded = true;
         }
         $('a[href="#custom-attribute-tab"]').tab("show");
     }
+    else if (query.includes("?tab=site-settings")) {
+        $('a[href="#site-settings-tab"]').tab("show");
+    }
     else {
         isFreshLoad = false;
-        history.replaceState(null, null, window.location.href);
+        $('a[href="#application-tab"]').tab("show");
     }
 
     window.addEventListener("popstate", function (e) {
@@ -123,17 +134,21 @@ $(document).ready(function () {
             $("#application a").attr("href", "#application-tab");
             $('a[href="#application-tab"]').tab('show');
         }
-        else if (tab === "users") {
+        else if (tab === "users" && isActiveSite) {
             $("#users a").attr("href", "#users-tab");
             $('a[href="#users-tab"]').tab('show');
         }
-        else if (tab === "isolation-code") {
+        else if (tab === "isolation-code" && isActiveSite) {
             $("#data-security a").attr("href", "#data-security-tab");
             $('a[href="#data-security-tab"]').tab('show');
         }
-        else if (tab === "attributes") {
+        else if (tab === "attributes" && isActiveSite) {
             $("#custom-attribute a").attr("href", "#custom-attribute-tab");
             $('a[href="#custom-attribute-tab"]').tab('show');
+        }
+        else if (tab === "site-settings") {
+            $("#site-settings a").attr("href", "#site-settings-tab");
+            $('a[href="#site-settings-tab"]').tab('show');
         }
         else {
             $("#application a").attr("href", "#application-tab");
@@ -195,11 +210,11 @@ $(document).ready(function () {
                                             if (result.activation == 0) {
                                                 SuccessAlert(window.Server.App.LocalizationContent.AddUser, window.Server.App.LocalizationContent.UserAddedActivated, 7000)
                                             }
-                                            else if (result.result == "success" && result.activation == 1) {
+                                            else if (result.result  && result.activation == 1) {
                                                 SuccessAlert(window.Server.App.LocalizationContent.AddUser, window.Server.App.LocalizationContent.UserAdded, 7000);
                                             }
-                                            else if (result.result == "failure" && result.isAdmin == true && result.activation == 1) {
-                                                WarningAlert(window.Server.App.LocalizationContent.AddUser, window.Server.App.LocalizationContent.UserActivationEmailCannotSent, 7000);
+                                            else if (!result.result && result.isAdmin == true && result.activation == 1) {
+                                                WarningAlert(window.Server.App.LocalizationContent.AddUser, window.Server.App.LocalizationContent.UserActivationEmailCannotSent, null, 7000);
                                             }
                                             g.refresh();
                                         }
@@ -251,6 +266,9 @@ $(document).on("shown.bs.tab", 'a[data-toggle="tab"]', function (e) {
             getAttributes();
             isAttributeTabLoaded = true;
         }
+    }
+    else if (target.indexOf("#site-settings-tab") !== -1) {
+        data = "site-settings";
     }
     pushUrl(data);
     needPush = true;
@@ -459,6 +477,7 @@ function getAppUsers() {
             {
                 field: "UserStatus",
                 allowFiltering: false,
+                allowSorting: false,
                 template: "#user-status-template",
                 headerTemplate: "#status-header",
                 type: "string",
@@ -479,6 +498,12 @@ function getAppUsers() {
 }
 
 function getAttributes() {
+    var tooltip = new ej.popups.Tooltip({
+        target: ".grid-content",
+        position: 'TopCenter',
+        beforeRender: beforeRender
+    }, "#grid-tooltip");
+
     var attributeGrid = new ejs.grids.Grid({
         dataSource: window.siteAttributes,
         gridLines: 'None',
@@ -492,10 +517,6 @@ function getAttributes() {
         enableAltRow: false,
         created: initialSiteGridCreate,
         dataBound: function (args) {
-            $('[data-toggle="tooltip"]').tooltip(
-                {
-                    container: 'body'
-                });
         },
         columns: [
             { field: 'Name', template: "#attribute-name-template", headerText: window.Server.App.LocalizationContent.Name, width: 40, allowSorting: true, allowFiltering: true },
@@ -519,6 +540,10 @@ function getAttributes() {
             hideWaitingPopup("SiteAttributesGrid");
         }
     });
+
+    function beforeRender(args) {
+        tooltip.content = args.target.closest("td").innerText;
+    }
 }
 
 function getUsersWithoutAccess() {
@@ -791,7 +816,12 @@ function removeUserAccess(users) {
                 if (result.status) {
                     var content = window.Server.App.LocalizationContent.RevokedAccessFor.format(result.count);
                     SuccessAlert(window.Server.App.LocalizationContent.RevokeSiteAccess, content, 7000);
-                } else {
+                }
+                else if (!result.status && result.errormessage !== '')
+                {
+                    WarningAlert(window.Server.App.LocalizationContent.RevokeSiteAccess, window.Server.App.LocalizationContent.RevokeSiteAccessForAdminError, null, 7000);
+                }
+                else {
                     WarningAlert(window.Server.App.LocalizationContent.RevokeSiteAccess, window.Server.App.LocalizationContent.RevokeSiteAccessError, result.Message, 7000);
                 }
                 singleUserRemove = false;
@@ -934,7 +964,6 @@ function updateTenantStatus(actionUrl, tenantId, action) {
     });
 }
 
-
 function enableIsolationCode() {
     isolationCode = isIsolationCodeUpdated ? $("#isolation-code").val().trim() : isolationCode;
     var isEnabled = $("#isolation-enable-switch").is(":checked");
@@ -959,9 +988,33 @@ function enableIsolationCode() {
                 $("#isolation-code-validation").html("");
                 $("#update-isolation-code").attr("disabled", false);
             }
-        }   
+        }
     }
 }
+
+$(document).on("click", "#update-tenant-settings", function () {
+    var globalSettingsOptions = [];
+    $(".enable-disable").each(function () {
+        if (this.id != "all-settings" && document.getElementById(this.id).ej2_instances[0].checked) {
+            globalSettingsOptions.push(document.getElementById(this.id).ej2_instances[0].value);
+        }
+    });
+
+    showWaitingPopup("content-area");
+    $.ajax({
+        type: "POST",
+        data: { tenantInfoId: tenantInfoId, globalSettingsOptions: globalSettingsOptions },
+        url: updateTenantSettingsUrl,
+        success: function (result) {
+            if (result.Status) {
+                SuccessAlert(window.Server.App.LocalizationContent.SiteSettings, window.Server.App.LocalizationContent.SiteSettingsSucess, 7000);
+            } else {
+                WarningAlert(window.Server.App.LocalizationContent.SiteSettings, window.Server.App.LocalizationContent.SiteSettingsError, 7000);
+            }
+            hideWaitingPopup("content-area");
+        }
+    });
+});
 
 $(document).on("click", "#update-isolation-code", function (e) {
     var isolationCode = $("#isolation-code").val().trim();
@@ -976,7 +1029,6 @@ $(document).on("click", "#update-isolation-code", function (e) {
             if (result.Status) {
                 isIsolationCodeUpdated = true;
                 SuccessAlert(window.Server.App.LocalizationContent.IsolationCode, window.Server.App.LocalizationContent.IsolationCodeSucess, 7000);
-                $("#update-isolation-code").attr("disabled", true);
             } else {
                 WarningAlert(window.Server.App.LocalizationContent.IsolationCode, window.Server.App.LocalizationContent.IsolationCodeError, result.Message, 7000);
             }
@@ -1003,3 +1055,69 @@ function validateCode() {
 $(document).on("click", "#data-security", function (e) {
     enableIsolationCode();
 });
+
+function initializeEj2CheckBox(id) {
+    var checkbox = new ejs.buttons.CheckBox({ created: onCreateGlobalSettings, cssClass: "e-check-box", change: onChangeGlobalSettings });
+    checkbox.appendTo('#' + id);
+}
+
+function onCreateGlobalSettings() {
+    if (this.element.id == "all-settings" && $("." + this.cssClass).find("#" + this.element.id).attr("indeterminate") == "indeterminate") {
+        this.indeterminate = true;
+    }
+    else {
+        this.checked = $("." + this.cssClass).find("#" + this.element.id).attr("checked") == "checked";
+        this.value = $("." + this.cssClass).find("#" + this.element.id).attr("value");
+    }
+}
+
+function changeIndeterminateState() {
+    var checkedCount = 0;
+    var unCheckedCount = 0;
+    $(".enable-disable").each(function () {
+        if (this.id != "all-settings") {
+            if (document.getElementById(this.id).ej2_instances[0].checked) {
+                checkedCount++;
+            }
+            else {
+                unCheckedCount++
+            }
+        }
+    });
+
+    if (checkedCount > 0 && unCheckedCount > 0) {
+        document.getElementById("all-settings").ej2_instances[0].indeterminate = true;
+    }
+    else if (checkedCount > 0 && unCheckedCount == 0) {
+        document.getElementById("all-settings").ej2_instances[0].indeterminate = false;
+        document.getElementById("all-settings").ej2_instances[0].checked = true;
+    }
+    else {
+        document.getElementById("all-settings").ej2_instances[0].indeterminate = false;
+        document.getElementById("all-settings").ej2_instances[0].checked = false;
+    }
+}
+
+function onChangeGlobalSettings(args) {
+    document.getElementById("all-settings").ej2_instances[0].indeterminate = false;
+    if (this.element.id == "all-settings" && args.checked) {
+        $(".enable-disable").each(function () {
+            document.getElementById(this.id).ej2_instances[0].checked = true;
+        });
+    }
+    else if (this.element.id == "all-settings" && !args.checked) {
+        document.getElementById("all-settings").ej2_instances[0].indeterminate = false;
+        $(".enable-disable").each(function () {
+            document.getElementById(this.id).ej2_instances[0].checked = false;
+        });
+    }
+    else {
+        changeIndeterminateState();
+    }
+}
+
+$(document).on("click", "#new-user-button", function () {
+    var usersgrid = document.getElementById('users_grid').ej2_instances[0];
+    usersgrid.clearSelection();
+});
+

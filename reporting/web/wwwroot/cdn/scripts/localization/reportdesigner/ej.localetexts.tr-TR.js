@@ -788,6 +788,7 @@ ej.ReportDesigner.Locale['tr-TR'] = {
             position: 'Başlık Konumu'
         },
         axis: {
+            axisType: 'Eksen Tipi',
             booleanPropertyLabel: 'Ekseni Etkinleştir',
             title: 'Eksen Başlığı',
             alignment: 'Hizalama',
@@ -915,6 +916,15 @@ ej.ReportDesigner.Locale['tr-TR'] = {
                         barLabelStyle: 'BarEtiketStil',
                         smartLabelStyle: 'Etiket Stili'
                     }
+                }
+            },
+            axisSettings: {
+                categoryName: 'Eksen Ayarları',
+                categoryAxis: 'Kategori',
+                valueAxis: 'Değer',
+                axisTypes: {
+                    primary: 'Öncelik',
+                    secondary: 'İkincil'
                 }
             },
             link: 'Bağlantı',
@@ -1878,7 +1888,9 @@ ej.ReportDesigner.Locale['tr-TR'] = {
                 serverName: 'Sunucu adı',
                 savePassword: 'Şifreyi kaydet',
                 database: 'Veri tabanı',
-                advanceSwitch: 'Gelişmiş seçenekler'
+                advanceSwitch: 'Gelişmiş seçenekler',
+                encrypt: 'şifrelemek',
+                trustserver: 'Sunucu Sertifikasına Güven'
             },
             advanceOption: {
                 connectionString: 'Bağlantı dizisi',
@@ -2436,9 +2448,9 @@ ej.ReportDesigner.Locale['tr-TR'] = {
                 contentText: 'Dışa aktarılan dosya formatını seçin.',
                 Pdf: 'PDF',
                 Excel: 'Excel',
-                Word: 'Kelime',
+                Word: 'Word',
                 Html: 'HTML',
-                PPT: 'Priz',
+                PPT: 'PowerPoint',
                 CSV: 'CSV',
                 XML: 'XML'
             },
@@ -2787,6 +2799,26 @@ ej.ReportDesigner.Locale['tr-TR'] = {
             Indicator: 'Gösterge raporu öğesi',
             Line: 'Satır raporu öğesi',
             Subreport: 'Alt rapor öğesi'
+        },
+        reportParameter: {
+            operators: {
+                equals: 'eşittir',
+                notEqualTo: 'Eşit değil',
+                lessThan: 'Daha az',
+                greaterThan: 'daha büyük',
+                lessOrEqual: 'Daha az veya eşit',
+                greaterOrEqual: 'Daha büyük veya eşit',
+                contains: 'içerir',
+                doesNotContain: 'Dahil değil',
+                startsWith: 'İle başlar',
+                endsWith: 'ile biter',
+                is: 'Dır-dir',
+                isNot: 'Değil',
+                in: 'İçinde',
+                notIn: 'Değil',
+                between: 'Arasında',
+                relative: 'Akraba'
+            }
         },
         selectAll: 'Hepsini seç',
         viewButton: 'Raporu görüntüle',
@@ -4153,7 +4185,9 @@ ej.ReportDesigner.Locale['tr-TR'] = {
         nameWaterMark: 'Parametre adı',
         valueWaterMark: 'Değer',
         closeToolTip: 'Kapat',
-        deleteField: 'Alanı Sil'
+        deleteField: 'Alanı Sil',
+        allowMultiple: 'Birden fazla değere izin ver',
+        allowNull: 'Boş değere izin verir'
     },
     queryDesigner: {
         storeParameter: {

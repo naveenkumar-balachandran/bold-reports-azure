@@ -48,12 +48,19 @@
     <ApplicationTheme>light</ApplicationTheme>
     <DashboardTheme>light</DashboardTheme>
   </Theme>
+	<Designer>
+		<Export>
+			<IsExcelWithImage>false</IsExcelWithImage>
+		</Export>
+	</Designer>
   <EnableSameTabLinkTarget>false</EnableSameTabLinkTarget>
   <HideMobileAppRedirectURI>false</HideMobileAppRedirectURI>
   <ResourceModifiedDate></ResourceModifiedDate>
 	<IsCustomBranding>false</IsCustomBranding>
+	<HideLicenseManagement>false</HideLicenseManagement>
 	<ShowStackTrace>false</ShowStackTrace>
 	<SessionIdleMinutes>60</SessionIdleMinutes>
+	<HideLoginOptionInEmail>false</HideLoginOptionInEmail>
 <BrandingImages>
 		<MainLogo>main_logo.svg</MainLogo>
 		<LoginLogo>login_logo.svg</LoginLogo>
@@ -67,4 +74,6 @@
 		<HideManageSites>false</HideManageSites>
 		<HideLogout>false</HideLogout>
 	</ProfileMenu>
+	<IgnoreSslValidation>false</IgnoreSslValidation>
+	<ApplicationInsightsConnectionString></ApplicationInsightsConnectionString>
 </SystemSettings>

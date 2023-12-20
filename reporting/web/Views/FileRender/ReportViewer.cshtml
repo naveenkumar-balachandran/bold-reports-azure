@@ -24,6 +24,7 @@
     var reportServerResourceUrl = globalAppSettings.SystemSettings.CDNLink.TrimEnd('/');
     var isAdmin = Context.Session.GetString("IsAdmin") != null && Convert.ToBoolean(Context.Session.GetString("IsAdmin"));
     var reportServiceCdnLink = globalAppSettings.SystemSettings.ReportServiceCdnLink.TrimEnd('/');
+    var canShowSession = ServerAppConfig.IsSelfHosted && (ViewBag.CanHideSessionInEmbed == null ? true : ViewBag.CanHideSessionInEmbed != true);
 
     if (embedConfig.IsEmbedReport || embedConfig.IsEmbedCode)
     {
@@ -386,6 +387,7 @@
      var deleteViewUrl = { "web": "@Url.Action("DeleteView", "ReportViews")", "api": "/items/views/delete" };
      var updateViewUrl = { "web": "@Url.Action("UpdateView", "ReportViews")", "api": "/items/views/edit" };
      var getSavedViewUrl = { "web": "@Url.Action("GetViews", "ReportViews")", "api": "/items/views/get-by-item-id" };
+    var isSessionActiveUrl = "@Url.Action("IsSessionActive", "Accounts")";
 
      var reportServerApiUrl = "@reportServerApiUrl";
      var filterQuery = "@filterQuery";
@@ -397,6 +399,7 @@
      var item_Id = "@ViewBag.ItemId.Split('/')[0]";
      var sameOrigin = true;
      var isSubmit = true;
+     var canHideSaveViewBtn = false;
 
      var embedConfig = @Html.Raw(Json.Serialize(embedConfig));
     var reportItemDetail = @Html.Raw(Json.Serialize(itemDetail));
@@ -406,6 +409,7 @@
     var isSelfHosted = @Json.Serialize(ServerAppConfig.IsSelfHosted);
     var isViewerV2Enabled = @Json.Serialize(ViewBag.IsViewerV2Enabled);
     var isUserAuthenticatedInCurrentTenant = @Json.Serialize(isUserAuthenticatedInCurrentTenant);
+    var canCheckSession = @Html.Raw(Json.Serialize(canShowSession));
 
         function renderComments() {
             var src = $("#commentModuleContainer iframe").attr("src");
@@ -671,7 +675,7 @@
                         reportLoaded: "openComments",
                         viewReportClick: "ViewReportClick",
                         renderingComplete: 'filterView',
-                        parameterChange: 'onParameterValueChange',
+                        parameterChange: (isUserAuthenticatedInCurrentTenant || !reportItemDetail.IsPublic) ? 'onParameterValueChange' : null,
                         parameters: filterParameters,
                         locale: '@language',
                         fontNames: customFontsName,
@@ -713,6 +717,7 @@
                         parameter = viewDetails.QueryString;
                         canUpdate = viewDetails.CanEdit;
                     }
+                    canHideSaveViewBtn = !viewDetails.CanEdit;
                 }
                 else {
                     window.location.href = ((window.location.origin + window.location.pathname));
@@ -820,7 +825,7 @@
         }
 
     function addCustomFonts(fontFamily, fontFile) {
-        var customFontUrl = baseUrl + "/content/custom-fonts/" + fontFile;
+        var customFontUrl = encodeURI(baseUrl + "/content/custom-fonts/" + fontFile);
             if (isFontFaceExist()) {
                 try {
                     const customFont = new FontFace(fontFamily, 'url(' + customFontUrl + ')');

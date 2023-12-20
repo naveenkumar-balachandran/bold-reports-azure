@@ -250,9 +250,11 @@
         var feedbackSendUrl = "@Url.Action("AddUserFeedback", "Feedback")";
         var feedbackCookieUrl = "@Url.Action("SetUserFeedbackCookies", "FeedBack")";
         var createDatasourceIframeUrl = "@Url.Action("Connection", "DataSourceDesigner")";
+        var isSessionActiveUrl = "@Url.Action("IsSessionActive", "Accounts")";
         var appBranding = "@GlobalAppSettings.Branding";
         var rootUrl = "@rootUrl";
         var rootUrlAction = "@rootUrl";
+        var canCheckSession = "@ServerAppConfig.IsSelfHosted";
     </script>
     @if (isMobile)
     {
