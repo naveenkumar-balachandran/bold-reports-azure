@@ -140,7 +140,7 @@
           ],
           "properties": {
             "RepoUrl": "https://github.com/jeevanSF3855/bold-reports-azure.git",
-            "branch": "test",
+            "branch": "designer",
             "IsManualIntegration": true
           }
         },
