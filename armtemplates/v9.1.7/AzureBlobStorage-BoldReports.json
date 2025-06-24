@@ -30,7 +30,7 @@
   "variables": {
     "WebAppSvcPlanWorkerSize": "0",
     "WebAppSvcPlanSKU": "Basic",
-    "WebAppSvcPlanName": "SyncfusionAppSvcPlantwo"
+    "WebAppSvcPlanName": "SyncfusionAppSvcPlanthree"
   },
   "resources": [
     {
@@ -140,7 +140,7 @@
           ],
           "properties": {
             "RepoUrl": "https://github.com/KingsleyAnbinnesan/bold-reports-azure.git",
-            "branch": "testing",
+            "branch": "reportsjobissue",
             "IsManualIntegration": true
           }
         },
