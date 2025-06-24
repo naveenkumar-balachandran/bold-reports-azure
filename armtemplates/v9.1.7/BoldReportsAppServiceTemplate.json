@@ -16,7 +16,7 @@
       "minLength": 3,
       "metadata": {
         "description": "Storage account name for Report Server. The name must be between 3 to 24 characters long, and can contain only numbers and lowercase letters."
-      }
+      },
       "defaultValue": "storageaccountname"
     },
     "storageAccountType": {
@@ -33,7 +33,7 @@
     }
   },
   "variables": {
-    "templatelink": "https://raw.githubusercontent.com/KingsleyAnbinnesan/bold-reports-azure/master/armtemplates/v9.1.7/AzureBlobStorage-BoldReports.json",
+    "templatelink": "https://raw.githubusercontent.com/boldreports/bold-reports-azure/master/armtemplates/v9.1.7/AzureBlobStorage-BoldReports.json",
   },
   "resources": [
     {
