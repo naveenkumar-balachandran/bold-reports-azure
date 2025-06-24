@@ -15,11 +15,13 @@
         <link rel="stylesheet" asp-append-version="true" href="@reportServerResourceUrl/cdn/css/theme/light.css" integrity="@IntegrityTagHelper.GetIntegrity("wwwroot/cdn/css/theme/light.css")" crossorigin="anonymous" />
         <link rel="stylesheet" asp-append-version="true" href="@reportServerResourceUrl/cdn/css/report-designer.css" integrity="@IntegrityTagHelper.GetIntegrity("wwwroot/cdn/css/report-designer.css")" crossorigin="anonymous" />
         <link rel="stylesheet" asp-append-version="true" href="@reportServerResourceUrl/cdn/css/connector-page.css" integrity="@IntegrityTagHelper.GetIntegrity("wwwroot/cdn/css/connector-page.css")" crossorigin="anonymous" />
+        <link rel="stylesheet" asp-append-version="true" href="@ServerAppConfig.CustomFontUrl(globalAppSettings?.SystemSettings?.FontPreference, reportServerResourceUrl)" />
     </environment>
     <environment exclude="Development,CloudDevelopment">
         <link rel="stylesheet" asp-append-version="true" href="@reportServerResourceUrl/cdn/css/theme/light.min.css" integrity="@IntegrityTagHelper.GetIntegrity("wwwroot/cdn/css/theme/light.min.css")" crossorigin="anonymous" />
         <link rel="stylesheet" asp-append-version="true" href="@reportServerResourceUrl/cdn/css/report-designer.min.css" integrity="@IntegrityTagHelper.GetIntegrity("wwwroot/cdn/css/report-designer.min.css")" crossorigin="anonymous" />
         <link rel="stylesheet" asp-append-version="true" href="@reportServerResourceUrl/cdn/css/connector-page.min.css" integrity="@IntegrityTagHelper.GetIntegrity("wwwroot/cdn/css/connector-page.min.css")" crossorigin="anonymous" />
+        <link rel="stylesheet" asp-append-version="true" href="@ServerAppConfig.CustomFontUrl(globalAppSettings?.SystemSettings?.FontPreference, reportServerResourceUrl)" />
     </environment>
     <link rel="icon" href="@Url.Content(globalAppSettings.SystemSettings.FavIcon)" id="favicon-link" />
 }

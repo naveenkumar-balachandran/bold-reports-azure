@@ -34,8 +34,8 @@
     <link rel="stylesheet" asp-append-version="true" href="@reportServerResourceUrl/cdn/css/theme/light.min.css" integrity="@IntegrityTagHelper.GetIntegrity("wwwroot/cdn/css/theme/light.min.css")" crossorigin="anonymous" />
     <link rel="stylesheet" asp-append-version="true" href="@reportServerResourceUrl/cdn/css/scheduleparameter.min.css" integrity="@IntegrityTagHelper.GetIntegrity("wwwroot/cdn/css/scheduleparameter.min.css")" crossorigin="anonymous" />
     <link rel="stylesheet" asp-append-version="true" href="@reportServerResourceUrl/cdn/css/scheduleiframe.min.css" integrity="@IntegrityTagHelper.GetIntegrity("wwwroot/cdn/css/scheduleiframe.min.css")" crossorigin="anonymous" />
-    <link rel="stylesheet" asp-append-version="true" href="@ServerAppConfig.CustomFontUrl(globalAppSettings?.SystemSettings?.FontPreference, reportServerResourceUrl)" />
     <link rel="stylesheet" asp-append-version="true" href="@reportServerResourceUrl/cdn/css/schedulerdialog.min.css" integrity="@IntegrityTagHelper.GetIntegrity("wwwroot/cdn/css/schedulerdialog.min.css")" crossorigin="anonymous" />
+    <link rel="stylesheet" asp-append-version="true" href="@ServerAppConfig.CustomFontUrl(globalAppSettings?.SystemSettings?.FontPreference, reportServerResourceUrl)" />
     <script nonce="@Context.Items["ScriptNonce"]" asp-append-version="true" src="@reportServerResourceUrl/cdn/scripts/schedulerdialog.min.js" integrity="@IntegrityTagHelper.GetIntegrity("wwwroot/cdn/scripts/schedulerdialog.min.js")" crossorigin="anonymous"></script>
     <script nonce="@Context.Items["ScriptNonce"]" asp-append-version="true" src="~/js/localizationcontent.js?c=@System.Globalization.CultureInfo.CurrentCulture"></script>
 </environment>

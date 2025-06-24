@@ -16,13 +16,13 @@
         @ViewBag.Title
     </title>
     <environment include="Development,CloudDevelopment">
-        <link rel="stylesheet" asp-append-version="true" href="@ServerAppConfig.CustomFontUrl(globalAppSettings?.SystemSettings?.FontPreference, reportServerResourceUrl)" />
         <link rel="stylesheet" asp-append-version="true" href="@reportServerResourceUrl/cdn/css/add-category.css" integrity="@IntegrityTagHelper.GetIntegrity("wwwroot/cdn/css/add-category.css")" crossorigin="anonymous" />
+        <link rel="stylesheet" asp-append-version="true" href="@ServerAppConfig.CustomFontUrl(globalAppSettings?.SystemSettings?.FontPreference, reportServerResourceUrl)" />
         <script nonce="@Context.Items["ScriptNonce"]" asp-append-version="true" src="@reportServerResourceUrl/cdn/scripts/add-category.js" integrity="@IntegrityTagHelper.GetIntegrity("wwwroot/cdn/scripts/add-category.js")" crossorigin="anonymous"></script>
     </environment>
     <environment exclude="Development,CloudDevelopment">
-        <link rel="stylesheet" asp-append-version="true" href="@ServerAppConfig.CustomFontUrl(globalAppSettings?.SystemSettings?.FontPreference, reportServerResourceUrl)" />
         <link rel="stylesheet" asp-append-version="true" href="@reportServerResourceUrl/cdn/css/add-category.min.css" integrity="@IntegrityTagHelper.GetIntegrity("wwwroot/cdn/css/add-category.min.css")" crossorigin="anonymous" />
+        <link rel="stylesheet" asp-append-version="true" href="@ServerAppConfig.CustomFontUrl(globalAppSettings?.SystemSettings?.FontPreference, reportServerResourceUrl)" />
         <script nonce="@Context.Items["ScriptNonce"]" asp-append-version="true" src="@reportServerResourceUrl/cdn/scripts/add-category.min.js" integrity="@IntegrityTagHelper.GetIntegrity("wwwroot/cdn/scripts/add-category.min.js")" crossorigin="anonymous"></script>
     </environment>
 

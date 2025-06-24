@@ -81,7 +81,7 @@
                             </td>
                             <td class="col-12">
                                 <div>
-                                    <select id="selected_category" data-live-search="true" data-none-results-text="[[[No results match]]]" title='[[[Select category]]]' name="categoryId" class="selectpicker form-control bottom-margin30" data-size="5" style="width: 100%; margin-bottom: 15px;" tabindex="1" autofocus>
+                                    <select id="selected_category" data-live-search="true" data-none-results-text="[[[No results match]]]" name="categoryId" class="selectpicker form-control bottom-margin30" data-size="5" style="width: 100%; margin-bottom: 15px;" tabindex="1" autofocus>
                                         @for (var item = 0; item < Model.Count; item++)
                                         {
                                             <option value="@Model[item].Id">@Model[item].Name</option>

@@ -215,15 +215,15 @@
     }
 <environment include="Development,CloudDevelopment">
     <script nonce="@Context.Items["ScriptNonce"]" asp-append-version="true" src="~/js/localizationcontent.js?c=@System.Globalization.CultureInfo.CurrentCulture"></script>
-        <link rel="stylesheet" asp-append-version="true" href="@reportServerResourceUrl/cdn/css/theme/light.css" integrity="@IntegrityTagHelper.GetIntegrity("wwwroot/cdn/css/theme/light.css")" crossorigin="anonymous" />
+    <link rel="stylesheet" asp-append-version="true" href="@reportServerResourceUrl/cdn/css/theme/light.css" integrity="@IntegrityTagHelper.GetIntegrity("wwwroot/cdn/css/theme/light.css")" crossorigin="anonymous" />
+    <link rel="stylesheet" asp-append-version="true" href="@reportServerResourceUrl/cdn/css/layout.css" integrity="@IntegrityTagHelper.GetIntegrity("wwwroot/cdn/css/layout.css")" crossorigin="anonymous" />
     <link rel="stylesheet" asp-append-version="true" href="@ServerAppConfig.CustomFontUrl(globalAppSettings?.SystemSettings?.FontPreference, reportServerResourceUrl)" />
-        <link rel="stylesheet" asp-append-version="true" href="@reportServerResourceUrl/cdn/css/layout.css" integrity="@IntegrityTagHelper.GetIntegrity("wwwroot/cdn/css/layout.css")" crossorigin="anonymous" />
 </environment>
 <environment exclude="Development,CloudDevelopment">
     <script nonce="@Context.Items["ScriptNonce"]" asp-append-version="true" src="~/js/localizationcontent.js?c=@System.Globalization.CultureInfo.CurrentCulture"></script>
-        <link rel="stylesheet" asp-append-version="true" href="@reportServerResourceUrl/cdn/css/theme/light.min.css" integrity="@IntegrityTagHelper.GetIntegrity("wwwroot/cdn/css/theme/light.min.css")" crossorigin="anonymous" />
+    <link rel="stylesheet" asp-append-version="true" href="@reportServerResourceUrl/cdn/css/theme/light.min.css" integrity="@IntegrityTagHelper.GetIntegrity("wwwroot/cdn/css/theme/light.min.css")" crossorigin="anonymous" />
+    <link rel="stylesheet" asp-append-version="true" href="@reportServerResourceUrl/cdn/css/layout.min.css" integrity="@IntegrityTagHelper.GetIntegrity("wwwroot/cdn/css/layout.min.css")" crossorigin="anonymous" />
     <link rel="stylesheet" asp-append-version="true" href="@ServerAppConfig.CustomFontUrl(globalAppSettings?.SystemSettings?.FontPreference, reportServerResourceUrl)" />
-        <link rel="stylesheet" asp-append-version="true" href="@reportServerResourceUrl/cdn/css/layout.min.css" integrity="@IntegrityTagHelper.GetIntegrity("wwwroot/cdn/css/layout.min.css")" crossorigin="anonymous" />
 </environment>
 
     @RenderSection("styles", false)

@@ -342,14 +342,15 @@
     <script nonce="@Model">
         $(document).ready(function () {
             var tenants = @Json.Serialize(ViewBag.Tenant);
+            var siteName = '@siteName';
             var tenantoption = "";
             for (var t = 0; t < tenants.length; t++) {
                 tenantoption += "<option value='" + tenants[t].TenantName + "'>" + tenants[t].TenantName + "</option>";
             }
             $("#tenantList").html(tenantoption);
-            $("#tenantList").val("@siteName");
             $("#tenantList").selectpicker('destroy');
             $("#tenantList").selectpicker();
+            $("#tenantList").selectpicker('val', siteName);
             window.parent.$('#ItemAction_wrapper').ejWaitingPopup("hide");
         });
     </script>

@@ -31,15 +31,17 @@
     <div id="publish-site-content" class="col-12 no-padding" style="display:none" ng-controller="PublishCtrl">
         <div id="publish-base-container" style="display:none">
             <div class="col-6 publish-container">
-                <div>
+                <div class="external-dropdown-site">
                     <label ng-if="publishType == '@PublishType.Internal.ToString()'">[[[Publish to these sites]]]:</label>
                     <label class="external-dropdown" ng-if="publishType == '@PublishType.External.ToString()'">[[[Publish to external sites]]]:</label>
-                    <div id="active-sites-dropdown" class="i-search-fields">
+                    <div id="active-sites-dropdown" class="i-search-fields d-flex align-items-center">
                         <select id="multiselect-dropdown" class="selectpicker" data-size="5" multiple data-actions-box="true" data-none-results-text="[[[No results match]]]" title="[[[Select Sites]]]" data-hide-disabled="true" data-live-search="true"></select>
+                        <span class="input-group-btn" id="add-external-sites" ng-if="publishType == '@PublishType.External.ToString()'">
+                            <button id="get-external-sites-detail" class="btn btn-default" type="button" data-bs-placement="right" title="[[[Add external sites]]]" data-bs-toggle="tooltip">
+                                <span class="su-add"></span>
+                            </button>
+                        </span>
                     </div>
-                    <span class="col-1 input-group-btn no-padding" id="add-external-sites" ng-if="publishType == '@PublishType.External.ToString()'">
-                        <button id="get-external-sites-detail" class="btn btn-default" type="button" data-bs-placement="right" title="[[[Add external sites]]]" data-bs-toggle="tooltip"><span class="su-add"></span></button>
-                    </span>
                 </div>
                 <span id="active-sites-validation" class="validation-message text"></span>
                 <label>[[[Category name]]]</label>

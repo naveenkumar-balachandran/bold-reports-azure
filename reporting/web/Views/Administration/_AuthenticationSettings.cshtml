@@ -275,11 +275,11 @@ cloudAuthControl = ViewBag.AuthControl as TenantAuthControl;
                                                 <span class="material-switch text-left">
                                                     @if ((bool)ViewBag.OAuthSettings.IsEnabled)
                                                     {
-                                                        <input type="checkbox" id="enable-oauth" name="oauthIsEnabled" ng-model="oauthIsEnabled" ng-init="oauthIsEnabled=true" ng-click="hideValidationMessage(oauthIsEnabled, 'oauth')" ng-checked=true />
+                                                        <input type="checkbox" id="enable-oauth" name="oauthIsEnabled" ng-model="oauthIsEnabled" ng-init="oauthIsEnabled=true" ng-change="hideValidationMessage(oauthIsEnabled, 'oauth')" ng-checked=true />
                                                     }
                                                     else
                                                     {
-                                                        <input type="checkbox" id="enable-oauth" name="oauthIsEnabled" ng-model="oauthIsEnabled" ng-init="oauthIsEnabled=false" ng-click="hideValidationMessage(oauthIsEnabled, 'oauth')" />
+                                                        <input type="checkbox" id="enable-oauth" name="oauthIsEnabled" ng-model="oauthIsEnabled" ng-init="oauthIsEnabled=false" ng-change="hideValidationMessage(oauthIsEnabled, 'oauth')" />
                                                     }
                                                     <label for="enable-oauth" class="label-primary"></label>
                                                 </span>
@@ -288,13 +288,13 @@ cloudAuthControl = ViewBag.AuthControl as TenantAuthControl;
                                         </div>
                                     </div>
                                     <div class="col-md-12 form-group">
-                                        <div class="col-md-6 no-padding no-margin d-flex align-items-center">
+                                        <div class="col-md-6 no-padding no-margin">
                                             <label class="app-textbox-label col-md-4 no-margin">[[[Provider Name]]]</label>
                                             <div class="col-md-8 no-margin form-input-field float-end input-with-icon" ng-class="(oauthSettingsForm.oauthProviderName.$dirty && oauthSettingsForm.oauthProviderName.$invalid) ? 'has-error' : ''">
                                                 <input type="text" class="form-control no-margin" ng-model="oauthProviderName" ng-init="oauthProviderName='@providerName'" name="oauthProviderName" placeholder="[[[Provider Name]]]" id="oauth-provider-name" data-ng-disabled="!oauthIsEnabled" required />
                                             <span id="oauth-provider-name-info" class="su su-info info-popup" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-html="true" title="" data-bs-content="[[[Name of the authentication provider to be displayed in the login page.]]]" tabindex="0"></span>
                                             </div>
-                                            <span class="validation-message" ng-show="oauthSettingsForm.oauthProviderName.$error.required && oauthSettingsForm.oauthProviderName.$dirty && oauthIsEnabled">[[[Please enter the OAuth provider name.]]]</span>
+                                            <span class="validation-message d-flex justify-content-center" ng-show="oauthSettingsForm.oauthProviderName.$error.required && oauthSettingsForm.oauthProviderName.$dirty && oauthIsEnabled">[[[Please enter the OAuth provider name.]]]</span>
                                         </div>
                                     </div>
                                     <div class="col-md-12 form-group">
@@ -316,18 +316,18 @@ cloudAuthControl = ViewBag.AuthControl as TenantAuthControl;
                                         </div>
                                     </div>
                                     <div class="col-md-12 form-group">
-                                        <div class="col-md-6 no-padding no-margin d-flex align-items-center">
+                                        <div class="col-md-6 no-padding no-margin">
                                             <label class="app-textbox-label col-md-4 no-margin">[[[Authorization Endpoint]]]</label>
                                             <div class="col-md-8 no-margin form-input-field float-end input-with-icon" ng-class="(oauthSettingsForm.oauthAuthorizationEP.$dirty && oauthSettingsForm.oauthAuthorizationEP.$invalid) ? 'has-error' : ''">
                                                 <input type="text" class="form-control col-md-6 no-margin" ng-model="oauthAuthorizationEP" ng-init="oauthAuthorizationEP='@authorizationEndPoint'" ng-pattern="@oauthRegEx" name="oauthAuthorizationEP" placeholder="[[[Authorization Endpoint]]]" id="oauth-authorization-endpoint" data-ng-disabled="!oauthIsEnabled" required />
                                                     <span id="oauth-auth-endpoint-info"class="su su-info info-popup" data-bs-toggle="popover" data-bs-placement="bottom" data-html="true" title="" data-bs-content="[[[An authorization URL where the resource owner grants authorization to the OAuth client to access protected resources.]]]" tabindex="0"> </span>
                                             </div>
+                                            <span class="validation-message d-flex justify-content-center" ng-show="oauthSettingsForm.oauthAuthorizationEP.$error.required && oauthSettingsForm.oauthAuthorizationEP.$dirty && oauthIsEnabled"> [[[Please enter the authorization endpoint.]]] </span>
+                                            <span class="validation-message d-flex justify-content-center" ng-show="oauthSettingsForm.oauthAuthorizationEP.$error.pattern && oauthSettingsForm.oauthAuthorizationEP.$dirty && oauthIsEnabled"> [[[Please enter a valid authorization endpoint.]]] </span>
                                         </div>
-                                        <span class="validation-message" ng-show="oauthSettingsForm.oauthAuthorizationEP.$error.required && oauthSettingsForm.oauthAuthorizationEP.$dirty && oauthIsEnabled"> [[[Please enter the authorization endpoint.]]] </span>
-                                        <span class="validation-message" ng-show="oauthSettingsForm.oauthAuthorizationEP.$error.pattern && oauthSettingsForm.oauthAuthorizationEP.$dirty && oauthIsEnabled"> [[[Please enter a valid authorization endpoint.]]] </span>
                                     </div>
                                     <div class="col-md-12 form-group">
-                                        <div class="col-md-6 no-padding no-margin d-flex align-items-center">
+                                        <div class="col-md-6 no-padding no-margin">
                                             <label class="app-textbox-label col-md-4 no-margin">[[[Token Endpoint]]]</label>
 
                                             <div class="col-md-8 no-margin form-input-field float-end">
@@ -340,13 +340,13 @@ cloudAuthControl = ViewBag.AuthControl as TenantAuthControl;
                                                     <input type="text" class="form-control col-md-6 no-margin" ng-model="oauthTokenEP" ng-init="oauthTokenEP='@tokenEndPoint'" ng-pattern="@oauthRegEx" name="oauthTokenEP" placeholder="[[[Token Endpoint]]]" id="oauth-token-endpoint" data-ng-disabled="!oauthIsEnabled" required />
                                                     <span id="oauth-token-endpoint-info" class="su su-info info-popup" data-bs-toggle="popover" data-bs-placement="bottom" data-html="true" title="" data-bs-content="[[[A token request URL where the OAuth client exchanges an authorization grant for an access token.]]]" tabindex="0"></span>
                                                 </div>
-                                                </div>
-                                            <span class="validation-message" ng-show="oauthSettingsForm.oauthTokenEP.$error.required && oauthSettingsForm.oauthTokenEP.$dirty && oauthIsEnabled"> [[[Please enter a token endpoint.]]] </span>
-                                            <span class="validation-message" ng-show="oauthSettingsForm.oauthTokenEP.$error.pattern && oauthSettingsForm.oauthTokenEP.$dirty && oauthIsEnabled">[[[Please enter a valid token endpoint.]]]</span>
+                                                <span class="validation-message d-flex " ng-show="oauthSettingsForm.oauthTokenEP.$error.required && oauthSettingsForm.oauthTokenEP.$dirty && oauthIsEnabled"> [[[Please enter a token endpoint.]]] </span>
+                                                <span class="validation-message d-flex " ng-show="oauthSettingsForm.oauthTokenEP.$error.pattern && oauthSettingsForm.oauthTokenEP.$dirty && oauthIsEnabled">[[[Please enter a valid token endpoint.]]]</span>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-md-12 form-group">
-                                        <div class="col-md-6 no-padding no-margin d-flex align-items-center">
+                                        <div class="col-md-6 no-padding no-margin">
                                             <label class="app-textbox-label col-md-4 no-margin">[[[User Information Endpoint]]]</label>
 
                                             <div class="col-md-8 no-margin form-input-field float-end">
@@ -359,8 +359,8 @@ cloudAuthControl = ViewBag.AuthControl as TenantAuthControl;
                                                     <span id="oauth-user-info-endpoint-info"class="su su-info info-popup"data-bs-toggle="popover"data-bs-placement="bottom"data-html="true" title="" data-bs-content="[[[URL to retrieve the user information based on the token.]]]" tabindex="0"></span>
                                                 </div>
                                             </div>
-                                            <span class="validation-message" ng-show="oauthSettingsForm.oauthUserInfoEP.$error.required && oauthSettingsForm.oauthUserInfoEP.$dirty && oauthIsEnabled"> [[[Please enter the user information endpoint.]]]</span>
-                                            <span class="validation-message" ng-show="oauthSettingsForm.oauthUserInfoEP.$error.pattern && oauthSettingsForm.oauthUserInfoEP.$dirty && oauthIsEnabled"> [[[Please enter a valid user information endpoint.]]]</span>
+                                            <span class="validation-message d-flex justify-content-center" ng-show="oauthSettingsForm.oauthUserInfoEP.$error.required && oauthSettingsForm.oauthUserInfoEP.$dirty && oauthIsEnabled"> [[[Please enter the user information endpoint.]]]</span>
+                                            <span class="validation-message d-flex justify-content-center" ng-show="oauthSettingsForm.oauthUserInfoEP.$error.pattern && oauthSettingsForm.oauthUserInfoEP.$dirty && oauthIsEnabled"> [[[Please enter a valid user information endpoint.]]]</span>
                                         </div>
                                     </div>
                                     <div class="col-md-12 form-group">
@@ -368,7 +368,7 @@ cloudAuthControl = ViewBag.AuthControl as TenantAuthControl;
                                             <label class="app-textbox-label col-md-4 no-margin">[[[Client ID]]]</label>
                                             <div class="col-md-8 no-margin form-input-field float-end" ng-class="(oauthSettingsForm.oauthClientId.$dirty && oauthSettingsForm.oauthClientId.$invalid) ? 'has-error' : ''">
                                                 <input type="text" class="form-control col-md-6 no-margin" ng-model="oauthClientId" ng-init="oauthClientId='@clientId'" name="oauthClientId" placeholder="[[[Client ID]]]" id="oauth-client-id" data-ng-disabled="!oauthIsEnabled" required />
-                                                <span class="validation-message" ng-show="oauthSettingsForm.oauthClientId.$error.required && oauthSettingsForm.oauthClientId.$dirty && oauthIsEnabled">[[[Please enter the client ID.]]]</span>
+                                                <span class="validation-message d-flex" ng-show="oauthSettingsForm.oauthClientId.$error.required && oauthSettingsForm.oauthClientId.$dirty && oauthIsEnabled">[[[Please enter the client ID.]]]</span>
                                             </div>
                                         </div>
                                     </div>
@@ -376,28 +376,29 @@ cloudAuthControl = ViewBag.AuthControl as TenantAuthControl;
                                         <div class="col-md-6 no-padding no-margin">
                                             <label class="app-textbox-label col-md-4 no-margin">[[[Client Secret]]]</label>
                                             <div class="col-md-8 no-margin form-input-field float-end" ng-class="(oauthSettingsForm.oauthClientSecret.$dirty && oauthSettingsForm.oauthClientSecret.$invalid) ? 'has-error' : ''">
-                                                <input type="password" class="form-control col-md-6 no-margin" ng-model="oauthClientSecret" ng-init="oauthClientSecret" name="oauthClientSecret" placeholder="[[[Client Secret]]]" id="oauth-client-secret" data-ng-disabled="!oauthIsEnabled" required />                                       <span class="validation-message" ng-show="oauthSettingsForm.oauthClientSecret.$error.required && oauthSettingsForm.oauthClientSecret.$dirty && oauthIsEnabled">[[[Please enter the client secret.]]]</span>
+                                                <input type="password" class="form-control col-md-6 no-margin" ng-model="oauthClientSecret" ng-init="oauthClientSecret" name="oauthClientSecret" placeholder="[[[Client Secret]]]" id="oauth-client-secret" data-ng-disabled="!oauthIsEnabled" required />
+                                                <span class="validation-message d-flex" ng-show="oauthSettingsForm.oauthClientSecret.$error.required && oauthSettingsForm.oauthClientSecret.$dirty && oauthIsEnabled">[[[Please enter the client secret.]]]</span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-12 form-group">
-                                        <div class="col-md-6 no-padding no-margin d-flex align-items-center">
+                                        <div class="col-md-6 no-padding no-margin">
                                             <label class="app-textbox-label col-md-4 no-margin">[[[Scopes]]]</label>
                                             <div class="col-md-8 no-margin form-input-field float-end input-with-icon" ng-class="(oauthSettingsForm.oauthScopes.$dirty && oauthSettingsForm.oauthScopes.$invalid) ? 'has-error' : ''">
                                                 <input type="text" class="form-control col-md-6 no-margin" ng-model="oauthScopes" ng-init="oauthScopes='@ViewBag.OAuthSettings.OAuthAuthSettings.Scopes'" name="oauthScopes" placeholder="[[[Comma separated scopes]]]" id="oauth-scopes" data-ng-disabled="!oauthIsEnabled" required />
                                                 <span id="oauth-scopes-info" class="su su-info info-popup" data-bs-toggle="popover" data-bs-placement="bottom" data-html="true" title="" data-bs-content="[[[Scope is a mechanism in OAuth 2.0 to limit an application's access to a user's account. An application can request one or more scopes. This information is then presented to the user in the consent screen, and the access token issued to the application will be limited to the scopes granted.]]]" tabindex="0"></span>
                                             </div>
-                                            <span class="validation-message" ng-show="oauthSettingsForm.oauthScopes.$error.required && oauthSettingsForm.oauthScopes.$dirty && oauthIsEnabled">[[[Please enter comma separated scopes.]]]</span>
+                                            <span class="validation-message d-flex justify-content-center" ng-show="oauthSettingsForm.oauthScopes.$error.required && oauthSettingsForm.oauthScopes.$dirty && oauthIsEnabled">[[[Please enter comma separated scopes.]]]</span>
                                         </div>
                                     </div>
                                     <div class="col-md-12 form-group">
-                                        <div class="col-md-6 no-padding no-margin d-flex align-items-center">
+                                        <div class="col-md-6 no-padding no-margin">
                                             <label class="app-textbox-label col-md-4 no-margin">[[[Logout URI]]]</label>
                                             <div class="col-md-8 no-margin form-input-field float-end input-with-icon" ng-class="(oauthSettingsForm.oauthLogoutEndpoint.$dirty && oauthSettingsForm.oauthLogoutEndpoint.$invalid) ? 'has-error' : ''">
                                                 <input type="text" class="form-control col-md-6 no-margin" ng-model="oauthLogoutEndpoint" ng-init="oauthLogoutEndpoint='@logoutEndPoint'" name="oauthLogoutEndpoint" placeholder="[[[Logout Endpoint (Optional)]]]" id="oauth-logout-endpoint" ng-pattern="@oauthRegEx" data-ng-disabled="!oauthIsEnabled" />
                                                 <span id="oauth-logoutendpoint-info" class="su su-info info-popup" data-bs-toggle="popover" data-bs-placement="bottom" data-html="true" title="" data-bs-content="[[[We support logout endpoints that have static request parameters.]]]" tabindex="0"></span>
                                             </div>
-                                            <span class="validation-message" ng-show="oauthSettingsForm.oauthLogoutEndpoint.$error.pattern && oauthSettingsForm.oauthLogoutEndpoint.$dirty && oauthIsEnabled">[[[Please enter a valid logout endpoint.]]]</span>
+                                            <span class="validation-message d-flex justify-content-center Logout URI" ng-show="oauthSettingsForm.oauthLogoutEndpoint.$error.pattern && oauthSettingsForm.oauthLogoutEndpoint.$dirty && oauthIsEnabled">[[[Please enter a valid logout endpoint.]]]</span>
                                         </div>
                                     </div>
                                     <div class="col-md-12 form-group">
@@ -423,7 +424,7 @@ cloudAuthControl = ViewBag.AuthControl as TenantAuthControl;
                                             <label class="app-textbox-label col-md-4 no-margin">[[[Email]]]</label>
                                             <div class="col-md-8 no-margin form-input-field float-end" ng-class="(oauthSettingsForm.userInfoEmail.$dirty && oauthSettingsForm.userInfoEmail.$invalid) ? 'has-error' : ''">
                                                 <input type="text" class="form-control col-md-6 no-margin" ng-model="userInfoEmail" ng-init="userInfoEmail='@userInfoEmail'" name="userInfoEmail" placeholder="[[[Email]]]" id="user-info-email" data-ng-disabled="!oauthIsEnabled" required />
-                                                <span class="validation-message" ng-show="oauthSettingsForm.userInfoEmail.$error.required && oauthSettingsForm.userInfoEmail.$dirty && oauthIsEnabled">[[[Please enter the value for email.]]]</span>
+                                                <span class="validation-message d-flex justify-content-center" ng-show="oauthSettingsForm.userInfoEmail.$error.required && oauthSettingsForm.userInfoEmail.$dirty && oauthIsEnabled">[[[Please enter the value for email.]]]</span>
                                             </div>
                                         </div>
                                     </div>
@@ -530,11 +531,11 @@ cloudAuthControl = ViewBag.AuthControl as TenantAuthControl;
                                                 <span class="material-switch text-left">
                                                     @if ((bool)ViewBag.OpenIDSettings.IsEnabled)
                                                     {
-                                                        <input type="checkbox" id="enable-openid" name="openidIsEnabled" ng-model="openidIsEnabled" ng-init="openidIsEnabled=true" ng-click="hideValidationMessage(openidIsEnabled, 'openid')" ng-checked=true />
+                                                        <input type="checkbox" id="enable-openid" name="openidIsEnabled" ng-model="openidIsEnabled" ng-init="openidIsEnabled=true" ng-change="hideValidationMessage(openidIsEnabled, 'openid')" ng-checked=true />
                                                     }
                                                     else
                                                     {
-                                                        <input type="checkbox" id="enable-openid" name="openidIsEnabled" ng-model="openidIsEnabled" ng-init="openidIsEnabled=false" ng-click="hideValidationMessage(openidIsEnabled, 'openid')" />
+                                                        <input type="checkbox" id="enable-openid" name="openidIsEnabled" ng-model="openidIsEnabled" ng-init="openidIsEnabled=false" ng-change="hideValidationMessage(openidIsEnabled, 'openid')" />
                                                     }
                                                     <label for="enable-openid" class="label-primary"></label>
                                                 </span>
@@ -543,13 +544,13 @@ cloudAuthControl = ViewBag.AuthControl as TenantAuthControl;
                                         </div>
                                     </div>
                                    <div class="col-md-12 form-group">
-                                        <div class="col-md-6 no-padding no-margin d-flex align-items-center">
+                                        <div class="col-md-6 no-padding no-margin">
                                             <label class="app-textbox-label col-md-4 no-margin">[[[Provider Name]]]</label>
                                             <div class="col-md-8 no-margin form-input-field float-end input-with-icon" ng-class="(openidSettingsForm.openidProviderName.$dirty && openidSettingsForm.openidProviderName.$invalid) ? 'has-error' : ''">
                                                 <input type="text" class="form-control no-margin" ng-model="openidProviderName" ng-init="openidProviderName='@OpenIDProviderName'" name="openidProviderName" placeholder="[[[Provider Name]]]" id="openid-provider-name" data-ng-disabled="!openidIsEnabled" required />
                                                 <span id="openid-provider-name-info" class="su su-info info-popup" data-bs-toggle="popover" data-bs-placement="bottom" data-html="true" title="" data-bs-content="[[[Name of the authentication provider to be displayed in the login page.]]]" tabindex="0"></span>
                                             </div>
-                                            <span class="validation-message" ng-show="openidSettingsForm.openidProviderName.$error.required && openidSettingsForm.openidProviderName.$dirty && openidIsEnabled">[[[Please enter the OpenID provider name.]]]</span>
+                                            <span class="validation-message d-flex justify-content-center" ng-show="openidSettingsForm.openidProviderName.$error.required && openidSettingsForm.openidProviderName.$dirty && openidIsEnabled">[[[Please enter the OpenID provider name.]]]</span>
                                         </div>
                                     </div>
                                     <div class="col-md-12 form-group">
@@ -571,14 +572,14 @@ cloudAuthControl = ViewBag.AuthControl as TenantAuthControl;
                                         </div>
                                     </div>
                                     <div class="col-md-12 form-group">
-                                        <div class="col-md-6 no-padding no-margin d-flex align-items-center">
+                                        <div class="col-md-6 no-padding no-margin">
                                             <label class="app-textbox-label col-md-4 no-margin">[[[Authority]]]</label>
                                             <div class="col-md-8 no-margin form-input-field float-end input-with-icon" ng-class="(openidSettingsForm.openidAuthority.$dirty && openidSettingsForm.openidAuthority.$invalid) ? 'has-error' : ''">
                                                 <input type="text" class="form-control no-margin" ng-model="openidAuthority" ng-init="openidAuthority='@authority'" ng-pattern="@oauthRegEx" name="openidAuthority" placeholder="[[[Authority]]]" id="openid-authority" data-ng-disabled="!openidIsEnabled" required />
                                                 <span id="openid-authority-info" class="su su-info info-popup" data-bs-toggle="popover" data-bs-placement="bottom" data-html="true" title="" data-bs-content="[[[Endpoint to authenticate the user and grant access to the protected resource. It returns the claims about the authenticated user.]]]" tabindex="0"></span>
                                             </div>
-                                            <span class="validation-message" ng-show="openidSettingsForm.openidAuthority.$error.required && openidSettingsForm.openidAuthority.$dirty && openidIsEnabled">[[[Please enter the Authority URL.]]]</span>
-                                            <span class="validation-message" ng-show="openidSettingsForm.openidAuthority.$error.pattern && openidSettingsForm.openidAuthority.$dirty && openidIsEnabled">[[[Please enter a valid Authority URL.]]]</span>
+                                            <span class="validation-message d-flex justify-content-center" ng-show="openidSettingsForm.openidAuthority.$error.required && openidSettingsForm.openidAuthority.$dirty && openidIsEnabled">[[[Please enter the Authority URL.]]]</span>
+                                            <span class="validation-message d-flex justify-content-center" ng-show="openidSettingsForm.openidAuthority.$error.pattern && openidSettingsForm.openidAuthority.$dirty && openidIsEnabled">[[[Please enter a valid Authority URL.]]]</span>
                                         </div>
                                     </div>
                                     <div class="col-md-12 form-group">
@@ -586,7 +587,7 @@ cloudAuthControl = ViewBag.AuthControl as TenantAuthControl;
                                             <label class="app-textbox-label col-md-4 no-margin">[[[Client ID]]]</label>
                                             <div class="col-md-8 no-margin form-input-field float-end" ng-class="(openidSettingsForm.openidClientId.$dirty && openidSettingsForm.openidClientId.$invalid) ? 'has-error' : ''">
                                                 <input type="text" class="form-control col-md-6 no-margin" ng-model="openidClientId" ng-init="openidClientId='@openIDClientId'" name="openidClientId" placeholder="[[[Client ID]]]" id="openid-client-id" data-ng-disabled="!openidIsEnabled" required />
-                                                <span class="validation-message" ng-show="openidSettingsForm.openidClientId.$error.required && openidSettingsForm.openidClientId.$dirty && openidIsEnabled">[[[Please enter the Client ID.]]]</span>
+                                                <span class="validation-message d-flex" ng-show="openidSettingsForm.openidClientId.$error.required && openidSettingsForm.openidClientId.$dirty && openidIsEnabled">[[[Please enter the Client ID.]]]</span>
                                             </div>
                                         </div>
                                     </div>
@@ -594,28 +595,29 @@ cloudAuthControl = ViewBag.AuthControl as TenantAuthControl;
                                         <div class="col-md-6 no-padding no-margin">
                                             <label class="app-textbox-label col-md-4 no-margin">[[[Client Secret]]]</label>
                                             <div class="col-md-8 no-margin form-input-field float-end" ng-class="(openidSettingsForm.openidClientSecret.$dirty && openidSettingsForm.openidClientSecret.$invalid) ? 'has-error' : ''">
-                                                <input type="password" class="form-control col-md-6 no-margin" ng-model="openidClientSecret" ng-init="openidClientSecret" name="openidClientSecret" placeholder="[[[Client Secret]]]" id="openid-client-secret" data-ng-disabled="!openidIsEnabled" required />                                       <span class="validation-message" ng-show="openidSettingsForm.openidClientSecret.$error.required && openidSettingsForm.openidClientSecret.$dirty && openidIsEnabled">[[[Please enter the client secret.]]]</span>
+                                                <input type="password" class="form-control col-md-6 no-margin" ng-model="openidClientSecret" ng-init="openidClientSecret" name="openidClientSecret" placeholder="[[[Client Secret]]]" id="openid-client-secret" data-ng-disabled="!openidIsEnabled" required />                                       
+                                                <span class="validation-message d-flex" ng-show="openidSettingsForm.openidClientSecret.$error.required && openidSettingsForm.openidClientSecret.$dirty && openidIsEnabled">[[[Please enter the client secret.]]]</span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-12 form-group">
-                                        <div class="col-md-6 no-padding no-margin d-flex align-items-center">
+                                        <div class="col-md-6 no-padding no-margin">
                                             <label class="app-textbox-label col-md-4 no-margin">[[[Identifier]]]</label>
                                             <div class="col-md-8 no-margin form-input-field float-end input-with-icon" ng-class="(openidSettingsForm.openidIdentifier.$dirty && openidSettingsForm.openidIdentifier.$invalid) ? 'has-error' : ''">
                                                 <input type="text" class="form-control no-margin" ng-model="openidIdentifier" ng-init="openidIdentifier='@identifier'" name="openidIdentifier" placeholder="[[[Identifier]]]" id="openid-identifier" data-ng-disabled="!openidIsEnabled" required />
                                                 <span id="openid-identifier-info" class="su su-info info-popup" data-bs-toggle="popover" data-bs-placement="bottom" data-html="true" title="" data-bs-content="[[[These claims are normally represented by a JSON object that contains a collection of name and value pairs for each claim. Provide the JSON key to identify the unique identity (email) of the user.]]]" tabindex="0"></span>
                                             </div>
-                                            <span class="validation-message" ng-show="openidSettingsForm.openidIdentifier.$error.required && openidSettingsForm.openidIdentifier.$dirty && openidIsEnabled">[[[Please enter the Identifier.]]]</span>
+                                            <span class="validation-message d-flex justify-content-center" ng-show="openidSettingsForm.openidIdentifier.$error.required && openidSettingsForm.openidIdentifier.$dirty && openidIsEnabled">[[[Please enter the Identifier.]]]</span>
                                         </div>
                                     </div>
                                     <div class="col-md-12 form-group">
-                                        <div class="col-md-6 no-padding no-margin d-flex align-items-center">
+                                        <div class="col-md-6 no-padding no-margin">
                                             <label class="app-textbox-label col-md-4 no-margin">[[[Logout Endpoint]]]</label>
                                             <div class="col-md-8 no-margin form-input-field float-end input-with-icon" ng-class="(openidSettingsForm.openidLogoutUrl.$dirty && openidSettingsForm.openidLogoutUrl.$invalid) ? 'has-error' : ''">
                                                 <input type="text" class="form-control no-margin" ng-model="openidLogoutUrl" ng-init="openidLogoutUrl='@logoutUrl'" name="openidLogoutUrl" placeholder="[[[Logout Endpoint (Optional)]]]" id="openid-logout-url" ng-pattern="@oauthRegEx" data-ng-disabled="!openidIsEnabled" />
                                                 <span id="openid-logouturl-info" class="su su-info info-popup" data-bs-toggle="popover" data-bs-placement="bottom" data-html="true" title="" data-bs-content="[[[We support logout endpoints that have static request parameters.]]]" tabindex="0"></span>
                                             </div>
-                                            <span class="validation-message" ng-show="openidSettingsForm.openidLogoutUrl.$error.pattern && openidSettingsForm.openidLogoutUrl.$dirty && openidIsEnabled">[[[Please enter a valid logout endpoint.]]]</span>
+                                            <span class="validation-message d-flex justify-content-center" ng-show="openidSettingsForm.openidLogoutUrl.$error.pattern && openidSettingsForm.openidLogoutUrl.$dirty && openidIsEnabled">[[[Please enter a valid logout endpoint.]]]</span>
                                         </div>
                                     </div>
                                     <div class="col-md-12 form-group">

@@ -306,7 +306,7 @@
       <Reports>
         <Report>
           <Name>Manufacturing Workflow for Tablet PC</Name>
-          <ImageName>Manufacturing-Workflow-for-Tablet-PC.png</ImageName>
+          <ImageName>manufacturing-workflow-tablet-pc.png</ImageName>
           <Description>This sample illustrates the design of an SSRS RDL report utilizing shape report items to construct a visually compelling flowchart that effectively represents a manufacturing workflow.</Description>
           <FileName>Manufacturing-Workflow-for-Tablet-PC.rdl</FileName>
           <SortOrder>9</SortOrder>

@@ -13,14 +13,14 @@
 @if (isReportDesigner)
 {
     <environment include="Development,CloudDevelopment">
-        <link rel="stylesheet" asp-append-version="true" href="@ServerAppConfig.CustomFontUrl(globalAppSettings?.SystemSettings?.FontPreference, reportServerResourceUrl)" />
         <script nonce="@Context.Items["ScriptNonce"]" asp-append-version="true" src="~/js/localizationcontent.js?c=@System.Globalization.CultureInfo.CurrentCulture"></script>
         <link rel="stylesheet" asp-append-version="true" href="@reportServerResourceUrl/cdn/css/add-category.css" integrity="@IntegrityTagHelper.GetIntegrity("wwwroot/cdn/css/add-category.css")" crossorigin="anonymous" />
+        <link rel="stylesheet" asp-append-version="true" href="@ServerAppConfig.CustomFontUrl(globalAppSettings?.SystemSettings?.FontPreference, reportServerResourceUrl)" />
     </environment>
     <environment exclude="Development,CloudDevelopment">
-        <link rel="stylesheet" asp-append-version="true" href="@ServerAppConfig.CustomFontUrl(globalAppSettings?.SystemSettings?.FontPreference, reportServerResourceUrl)" />
         <script nonce="@Context.Items["ScriptNonce"]" asp-append-version="true" src="~/js/localizationcontent.js?c=@System.Globalization.CultureInfo.CurrentCulture"></script>
         <link rel="stylesheet" asp-append-version="true" href="@reportServerResourceUrl/cdn/css/add-category.min.css" integrity="@IntegrityTagHelper.GetIntegrity("wwwroot/cdn/css/add-category.min.css")" crossorigin="anonymous" />
+        <link rel="stylesheet" asp-append-version="true" href="@ServerAppConfig.CustomFontUrl(globalAppSettings?.SystemSettings?.FontPreference, reportServerResourceUrl)" />
     </environment>
     <script nonce="@Context.Items["ScriptNonce"]">
         isCategoryPopupInReportDesigner = @Json.Serialize(isReportDesigner);

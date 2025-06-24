@@ -111,7 +111,7 @@
                     addUserDirectoryLog("site");
                 }
                 if (!section.includes('?')) {
-                    var defaultVisibleTab = $("#ad-tab-nav li.active a").attr("id");
+                    var defaultVisibleTab = $("#ad-tab-nav li a.active").attr("id");
 
                     if (defaultVisibleTab == ("windows-ad")) {
                         history.pushState(null, '', '?tab=windows-ad');
