@@ -33,7 +33,7 @@
     }
   },
   "variables": {
-    "templatelink": "https://raw.githubusercontent.com/KingsleyAnbinnesan/bold-reports-azure/master/armtemplates/v9.1.7/AzureBlobStorage-BoldReports.json"
+    "templatelink": "https://raw.githubusercontent.com/naveenkumar-balachandran/bold-reports-azure/master/armtemplates/v9.1.7/AzureBlobStorage-BoldReports.json"
   },
   "resources": [
     {
