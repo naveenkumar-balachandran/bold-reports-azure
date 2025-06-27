@@ -30,7 +30,7 @@
   "variables": {
     "WebAppSvcPlanWorkerSize": "0",
     "WebAppSvcPlanSKU": "Basic",
-    "WebAppSvcPlanName": "SyncfusionAppSvcPlanthree"
+    "WebAppSvcPlanName": "SyncfusionAppSvcPlanone"
   },
   "resources": [
     {
@@ -139,8 +139,8 @@
             "[resourceId('Microsoft.Web/Sites', parameters('WebAppName'))]"
           ],
           "properties": {
-            "RepoUrl": "https://github.com/KingsleyAnbinnesan/bold-reports-azure.git",
-            "branch": "reportsjobissue",
+            "RepoUrl": "https://github.com/naveenkumar-balachandran/bold-reports-azure.git",
+            "branch": "reportsnewjoblatest",
             "IsManualIntegration": true
           }
         },
